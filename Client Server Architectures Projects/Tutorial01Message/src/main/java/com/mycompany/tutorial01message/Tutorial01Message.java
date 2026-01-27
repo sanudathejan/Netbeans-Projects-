@@ -4,22 +4,46 @@
 
 package com.mycompany.tutorial01message;
 
-/**
- *
- * @author Sanuda
- */
+import java.util.logging.*;
+
 public class Tutorial01Message {
+
+    private static final Logger logger = Logger.getLogger(Tutorial01Message.class.getName());
 
     public static void main(String[] args) {
 
-        // Create Sender and Receiver objects
+        configureLogger();
+
+        logger.info("Program started...");
+
         Sender sender = new Sender();
         Receiver receiver = new Receiver();
 
-        // Sender creates a message
-        Message message = sender.createMessage("Hello! This is a test message.");
-
-        // Sender sends message to Receiver
+        Message message = sender.createMessage("Hello! Logging test message.");
         sender.sendMessage(message, receiver);
+
+        logger.info("Program finished.");
+    }
+
+    // REQUIRED METHOD FOR EXERCISE
+    private static void configureLogger() {
+        try {
+            Logger globalLogger = Logger.getLogger("");
+
+            Handler[] handlers = globalLogger.getHandlers();
+            for (Handler handler : handlers) {
+                globalLogger.removeHandler(handler);
+            }
+
+            ConsoleHandler consoleHandler = new ConsoleHandler();
+            consoleHandler.setLevel(Level.ALL);
+            globalLogger.addHandler(consoleHandler);
+
+            globalLogger.setLevel(Level.ALL);
+
+        } catch (Exception e) {
+            Logger.getGlobal().log(Level.SEVERE, "Error configuring logger: " + e.getMessage(), e);
+        }
     }
 }
+
