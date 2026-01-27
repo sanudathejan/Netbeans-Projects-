@@ -8,12 +8,15 @@ package com.mycompany.tutorial01message;
  *
  * @author Sanuda
  */
+import java.util.logging.Logger;
+
 public class Receiver {
 
-    // Receive a message
+    private static final Logger logger = Logger.getLogger(Receiver.class.getName());
+
     public void receiveMessage(Message message) {
-        System.out.println("Receiver: Message received.");
-        System.out.println("Message Content: " + message.getContent());
+        logger.info("Receiver: Message received.");
+        logger.info("Receiver: Message content = " + message.getContent());
     }
 }
 
